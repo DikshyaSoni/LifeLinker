@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BloodConnect - Save Lives Through Blood Donation</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      :root {
+          --primary: #dc2626;
+          --primary-dark: #b91c1c;
+          --secondary: #f87171;
+          --accent: #fbbf24;
+          --light: #fef2f2;
+          --dark: #1f2937;
+          --success: #10b981;
+          --warning: #f59e0b;
+          --info: #3b82f6;
+      }
+
+      body {
+          background-color: #fff;
+          color: var(--dark);
+          line-height: 1.6;
+      }
+
+      body.dark-theme {
+          background-color: #1a1a1a;
+          color: #e0e0e0;
+      }
+
+      .container {
+          width: 90%;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 15px;
+      }
+
+      /* Header Styles */
+      header {
+          background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+          color: white;
+          padding: 1rem 0;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          position: sticky;
+          top: 0;
+          z-index: 100;
+      }
+
+      .header-content {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+
+      .logo {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+      }
+
+      .logo i {
+          font-size: 2rem;
+      }
+
+      .logo h1 {
+          font-size: 1.8rem;
+          font-weight: 700;
+      }
+
+      nav ul {
+          display: flex;
+          list-style: none;
+          gap: 2rem;
+      }
+
+      nav a {
+          color: white;
+          text-decoration: none;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+      }
+
+      nav a:hover {
+          background: rgba(255, 255, 255, 0.1);
+      }
+
+      .theme-toggle {
+          background: none;
+          border: none;
+          color: white;
+          font-size: 1.5rem;
+          cursor: pointer;
+          margin-left: 1rem;
+          transition: transform 0.3s ease;
+      }
+
+      .theme-toggle:hover {
+          transform: rotate(30deg);
+      }
+
+      .mobile-menu-btn {
+          display: none;
+          background: none;
+          border: none;
+          color: white;
+          font-size: 1.5rem;
+          cursor: pointer;
+      }
+
+      /* Hero Section */
+      .hero {
+          background: linear-gradient(rgba(220, 38, 38, 0.9), rgba(185, 28, 28, 0.9)), url('https://placehold.co/1200x600/dc2626/white?text=Blood+Donation') no-repeat center center/cover;
+          color: white;
+          padding: 5rem 0;
+          text-align: center;
+      }
+
+      .hero-content {
+          max-width: 800px;
+          margin: 0 auto;
+      }
+
+      .hero h2 {
+          font-size: 3rem;
+          margin-bottom: 1rem;
+          animation: fadeInDown 1s ease;
+      }
+
+      .hero p {
+          font-size: 1.2rem;
+          margin-bottom: 2rem;
+          animation: fadeInUp 1s ease;
+      }
+
+      .cta-button {
+          display: inline-block;
+          background: white;
+          color: var(--primary);
+          padding: 1rem 2rem;
+          border-radius: 50px;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 1.1rem;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+          animation: pulse 2s infinite;
+      }
+
+      .cta-button:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Section Styles */
+      section {
+          padding: 5rem 0;
+      }
+
+      .section-title {
+          text-align: center;
+          margin-bottom: 3rem;
+      }
+
+      .section-title h2 {
+          font-size: 2.5rem;
+          color: var(--primary);
+          margin-bottom: 1rem;
+      }
+
+      .section-title p {
+          color: #666;
+          max-width: 700px;
+          margin: 0 auto;
+      }
+
+      body.dark-theme .section-title p {
+          color: #aaa;
+      }
+
+      /* Form Styles */
+      .form-container {
+          background: white;
+          border-radius: 10px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          padding: 2rem;
+          max-width: 800px;
+          margin: 0 auto;
+      }
+
+      body.dark-theme .form-container {
+          background: #2d2d2d;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .form-group {
+          margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-weight: 500;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+          width: 100%;
+          padding: 0.8rem;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          font-size: 1rem;
+          transition: border-color 0.3s ease;
+          background: white;
+          color: #333;
+      }
+
+      body.dark-theme .form-group input,
+      body.dark-theme .form-group select,
+      body.dark-theme .form-group textarea {
+          background: #3d3d3d;
+          border: 1px solid #555;
+          color: #e0e0e0;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+          border-color: var(--primary);
+          outline: none;
+          box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+      }
+
+      .btn {
+          display: inline-block;
+          background: var(--primary);
+          color: white;
+          padding: 0.8rem 1.5rem;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 1rem;
+          font-weight: 500;
+          transition: all 0.3s ease;
+      }
+
+      .btn:hover {
+          background: var(--primary-dark);
+          transform: translateY(-2px);
+      }
+
+      .btn-block {
+          display: block;
+          width: 100%;
+      }
+
+      /* Search Section */
+      .search-filters {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+          margin-bottom: 2rem;
+      }
+
+      .filter-group {
+          flex: 1;
+          min-width: 200px;
+      }
+
+      .donor-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+          gap: 1.5rem;
+      }
+
+      .donor-card {
+          background: white;
+          border-radius: 10px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+          padding: 1.5rem;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          border-top: 4px solid var(--primary);
+      }
+
+      body.dark-theme .donor-card {
+          background: #2d2d2d;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .donor-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      body.dark-theme .donor-card:hover {
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      }
+
+      .donor-card h3 {
+          color: var(--primary);
+          margin-bottom: 0.5rem;
+      }
+
+      .donor-card p {
+          margin-bottom: 0.3rem;
+          color: #555;
+      }
+
+      body.dark-theme .donor-card p {
+          color: #bbb;
+      }
+
+      .blood-group {
+          display: inline-block;
+          background: var(--primary);
+          color: white;
+          padding: 0.3rem 0.8rem;
+          border-radius: 20px;
+          font-weight: 600;
+          margin-top: 0.5rem;
+      }
+
+      /* Emergency Requests */
+      .emergency-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+          gap: 1.5rem;
+      }
+
+      .emergency-card {
+          background: white;
+          border-radius: 10px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+          padding: 1.5rem;
+          border-left: 4px solid var(--warning);
+          position: relative;
+      }
+
+      body.dark-theme .emergency-card {
+          background: #2d2d2d;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .emergency-badge {
+          position: absolute;
+          top: -10px;
+          right: 15px;
+          background: var(--warning);
+          color: white;
+          padding: 0.3rem 0.8rem;
+          border-radius: 20px;
+          font-weight: 600;
+          font-size: 0.9rem;
+      }
+
+      .emergency-card h3 {
+          color: var(--warning);
+          margin-bottom: 0.5rem;
+      }
+
+      /* Benefits Section */
+      .benefits-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 2rem;
+      }
+
+      .benefit-card {
+          text-align: center;
+          padding: 2rem;
+          background: white;
+          border-radius: 10px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+          transition: transform 0.3s ease;
+      }
+
+      body.dark-theme .benefit-card {
+          background: #2d2d2d;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .benefit-card:hover {
+          transform: translateY(-10px);
+      }
+
+      .benefit-icon {
+          font-size: 3rem;
+          color: var(--primary);
+          margin-bottom: 1rem;
+      }
+
+      /* Testimonials */
+      .testimonials-container {
+          max-width: 800px;
+          margin: 0 auto;
+      }
+
+      .testimonial {
+          background: white;
+          border-radius: 10px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+          padding: 2rem;
+          margin-bottom: 2rem;
+          position: relative;
+      }
+
+      body.dark-theme .testimonial {
+          background: #2d2d2d;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .testimonial:before {
+          content: """;
+          position: absolute;
+          top: 10px;
+          left: 20px;
+          font-size: 5rem;
+          color: var(--primary);
+          opacity: 0.1;
+          font-family: Georgia, serif;
+      }
+
+      .testimonial p {
+          font-style: italic;
+          margin-bottom: 1rem;
+      }
+
+      .testimonial-author {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+      }
+
+      .author-avatar {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background: var(--primary);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-weight: bold;
+      }
+
+      /* Footer */
+      footer {
+          background: var(--dark);
+          color: white;
+          padding: 3rem 0 1.5rem;
+      }
+
+      .footer-content {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 2rem;
+          margin-bottom: 2rem;
+      }
+
+      .footer-column h3 {
+          margin-bottom: 1rem;
+          color: var(--accent);
+      }
+
+      .footer-column ul {
+          list-style: none;
+      }
+
+      .footer-column ul li {
+          margin-bottom: 0.5rem;
+      }
+
+      .footer-column a {
+          color: #ddd;
+          text-decoration: none;
+          transition: color 0.3s ease;
+      }
+
+      .footer-column a:hover {
+          color: var(--accent);
+      }
+
+      .social-links {
+          display: flex;
+          gap: 1rem;
+          margin-top: 1rem;
+      }
+
+      .social-links a {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 40px;
+          height: 40px;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 50%;
+          transition: background 0.3s ease;
+      }
+
+      .social-links a:hover {
+          background: var(--primary);
+      }
+
+      .copyright {
+          text-align: center;
+          padding-top: 1.5rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          color: #aaa;
+      }
+
+      /* Animations */
+      @keyframes fadeInDown {
+          from {
+              opacity: 0;
+              transform: translateY(-30px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+
+      @keyframes fadeInUp {
+          from {
+              opacity: 0;
+              transform: translateY(30px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+
+      @keyframes pulse {
+          0% {
+              box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+          }
+          70% {
+              box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+          }
+          100% {
+              box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+          }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+          .header-content {
+              flex-direction: column;
+              gap: 1rem;
+          }
+
+          nav ul {
+              gap: 1rem;
+          }
+
+          .hero h2 {
+              font-size: 2rem;
+          }
+
+          .hero p {
+              font-size: 1rem;
+          }
+
+          .mobile-menu-btn {
+              display: block;
+              position: absolute;
+              top: 1rem;
+              right: 1rem;
+          }
+
+          nav ul {
+              display: none;
+              flex-direction: column;
+              background: rgba(0, 0, 0, 0.9);
+              position: absolute;
+              top: 100%;
+              left: 0;
+              width: 100%;
+              padding: 1rem;
+          }
+
+          nav ul.show {
+              display: flex;
+          }
+
+          .search-filters {
+              flex-direction: column;
+          }
+
+          .filter-group {
+              width: 100%;
+          }
+      }
+
+      @media (max-width: 480px) {
+          .hero {
+              padding: 3rem 0;
+          }
+
+          .hero h2 {
+              font-size: 1.8rem;
+          }
+
+          section {
+              padding: 3rem 0;
+          }
+
+          .section-title h2 {
+              font-size: 2rem;
+          }
+      }
+
+      /* Notification Styles */
+      .notification {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          padding: 1rem 1.5rem;
+          border-radius: 5px;
+          color: white;
+          font-weight: 500;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+          z-index: 1000;
+          transform: translateX(120%);
+          transition: transform 0.3s ease;
+      }
+
+      .notification.show {
+          transform: translateX(0);
+      }
+
+      .notification.success {
+          background: var(--success);
+      }
+
+      .notification.error {
+          background: var(--primary);
+      }
+
+      /* Tab Styles */
+      .tabs {
+          display: flex;
+          margin-bottom: 2rem;
+          border-bottom: 1px solid #ddd;
+      }
+
+      body.dark-theme .tabs {
+          border-bottom: 1px solid #555;
+      }
+
+      .tab {
+          padding: 1rem 2rem;
+          cursor: pointer;
+          font-weight: 500;
+          transition: all 0.3s ease;
+      }
+
+      .tab.active {
+          color: var(--primary);
+          border-bottom: 3px solid var(--primary);
+      }
+
+      body.dark-theme .tab {
+          color: #ccc;
+      }
+
+      body.dark-theme .tab.active {
+          color: var(--primary);
+      }
+
+      .tab-content {
+          display: none;
+      }
+
+      .tab-content.active {
+          display: block;
+      }
+
+      /* Stats Section */
+      .stats-container {
+          display: flex;
+          justify-content: space-around;
+          flex-wrap: wrap;
+          gap: 2rem;
+          margin: 2rem 0;
+      }
+
+      .stat-card {
+          text-align: center;
+          background: white;
+          padding: 1.5rem;
+          border-radius: 10px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+          flex: 1;
+          min-width: 200px;
+      }
+
+      body.dark-theme .stat-card {
+          background: #2d2d2d;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .stat-number {
+          font-size: 2.5rem;
+          font-weight: 700;
+          color: var(--primary);
+          margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+          color: #666;
+          font-size: 1.1rem;
+      }
+
+      body.dark-theme .stat-label {
+          color: #aaa;
+      }
+
+      /* Creator Button */
+      .creator-button {
+          position: fixed;
+          bottom: 80px;
+          right: 20px;
+          background: var(--primary);
+          color: white;
+          border: none;
+          border-radius: 50%;
+          width: 60px;
+          height: 60px;
+          font-size: 1.2rem;
+          cursor: pointer;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+          transition: all 0.3s ease;
+          z-index: 99;
+      }
+
+      .creator-button:hover {
+          background: var(--primary-dark);
+          transform: scale(1.1);
+      }
+
+      .creator-button i {
+          margin-left: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-content">
+        <div class="logo">
+          <i class="fas fa-heartbeat"></i>
+          <h1>Life-Linkers</h1>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+          <ul id="navMenu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#register">Register</a></li>
+            <li><a href="#search">Find Donors</a></li>
+            <li><a href="#emergency">Emergency</a></li>
+            <li><a href="#benefits">Benefits</a></li>
+          </ul>
+        </nav>
+        <button class="theme-toggle" id="themeToggle">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="container hero-content">
+        <h2>Save Lives Through Blood Donation</h2>
+        <p>
+          Connect with donors in real-time, find compatible blood types, and
+          make a difference in your community. Every donation can save up to 3
+          lives!
+        </p>
+        <a href="#register" class="cta-button">Become a Donor</a>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section>
+      <div class="container">
+        <div class="stats-container">
+          <div class="stat-card">
+            <div class="stat-number" id="donorCount">40</div>
+            <div class="stat-label">Registered Donors</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Cities Covered</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="emergencyCount">0</div>
+            <div class="stat-label">Active Requests</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">8</div>
+            <div class="stat-label">Blood Groups</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="register">
+      <div class="container">
+        <div class="section-title">
+          <h2>Register as a Donor</h2>
+          <p>
+            Join our community of life-savers by registering your details below
+          </p>
+        </div>
+        <div class="form-container">
+          <form id="donorForm">
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input
+                type="text"
+                id="fullName"
+                required
+                placeholder="Enter your full name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                required
+                placeholder="Enter your email"
+              />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input
+                type="tel"
+                id="phone"
+                required
+                placeholder="Enter your phone number"
+              />
+            </div>
+            <div class="form-group">
+              <label for="location">Location</label>
+              <input
+                type="text"
+                id="location"
+                required
+                placeholder="City, State"
+              />
+            </div>
+            <div class="form-group">
+              <label for="bloodGroup">Blood Group</label>
+              <select id="bloodGroup" required>
+                <option value="">Select Blood Group</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="lastDonation">Last Donation Date</label>
+              <input type="date" id="lastDonation" required />
+            </div>
+            <div class="form-group">
+              <label for="availability">Availability</label>
+              <select id="availability" required>
+                <option value="available">Available</option>
+                <option value="unavailable">Unavailable</option>
+                <option value="busy">Busy for next 3 months</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-block">
+              Register as Donor
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search Donors Section -->
+    <section id="search">
+      <div class="container">
+        <div class="section-title">
+          <h2>Find Blood Donors</h2>
+          <p>Search for compatible donors in your area during emergencies</p>
+        </div>
+        <div class="form-container">
+          <div class="search-filters">
+            <div class="filter-group">
+              <label for="searchBloodGroup">Blood Group</label>
+              <select id="searchBloodGroup">
+                <option value="">All Blood Groups</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="searchLocation">Location</label>
+              <input
+                type="text"
+                id="searchLocation"
+                placeholder="Enter city or state"
+              />
+            </div>
+            <div class="filter-group">
+              <label for="searchAvailability">Availability</label>
+              <select id="searchAvailability">
+                <option value="">All</option>
+                <option value="available">Available</option>
+                <option value="unavailable">Unavailable</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>&nbsp;</label>
+              <button class="btn" id="searchBtn" style="width: 100%">
+                Search Donors
+              </button>
+            </div>
+          </div>
+          <div class="donor-grid" id="donorResults">
+            <!-- Donor cards will be dynamically inserted here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Emergency Requests Section -->
+    <section id="emergency">
+      <div class="container">
+        <div class="section-title">
+          <h2>Emergency Blood Requests</h2>
+          <p>Post urgent requests or view current emergencies</p>
+        </div>
+        <div class="tabs">
+          <div class="tab active" data-tab="view">View Requests</div>
+          <div class="tab" data-tab="post">Post Request</div>
+        </div>
+        <div class="tab-content active" id="viewTab">
+          <div class="form-container">
+            <div class="emergency-grid" id="emergencyRequests">
+              <!-- Emergency requests will be dynamically inserted here -->
+            </div>
+          </div>
+        </div>
+        <div class="tab-content" id="postTab">
+          <div class="form-container">
+            <form id="emergencyForm">
+              <div class="form-group">
+                <label for="patientName">Patient Name</label>
+                <input
+                  type="text"
+                  id="patientName"
+                  required
+                  placeholder="Enter patient's name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="hospital">Hospital Name</label>
+                <input
+                  type="text"
+                  id="hospital"
+                  required
+                  placeholder="Enter hospital name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="requestLocation">Location</label>
+                <input
+                  type="text"
+                  id="requestLocation"
+                  required
+                  placeholder="City, State"
+                />
+              </div>
+              <div class="form-group">
+                <label for="requiredBloodGroup">Required Blood Group</label>
+                <select id="requiredBloodGroup" required>
+                  <option value="">Select Blood Group</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="unitsRequired">Units Required</label>
+                <input
+                  type="number"
+                  id="unitsRequired"
+                  min="1"
+                  required
+                  placeholder="Number of units"
+                />
+              </div>
+              <div class="form-group">
+                <label for="contactPerson">Contact Person</label>
+                <input
+                  type="text"
+                  id="contactPerson"
+                  required
+                  placeholder="Name of contact person"
+                />
+              </div>
+              <div class="form-group">
+                <label for="contactPhone">Contact Phone</label>
+                <input
+                  type="tel"
+                  id="contactPhone"
+                  required
+                  placeholder="Phone number"
+                />
+              </div>
+              <div class="form-group">
+                <label for="requestDetails">Additional Details</label>
+                <textarea
+                  id="requestDetails"
+                  rows="3"
+                  placeholder="Any additional information"
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-block">
+                Post Emergency Request
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits">
+      <div class="container">
+        <div class="section-title">
+          <h2>Benefits of Blood Donation</h2>
+          <p>Discover why donating blood is good for you and your community</p>
+        </div>
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <h3>Saves Lives</h3>
+            <p>
+              One donation can save up to three lives. Your blood can be used
+              for various medical treatments.
+            </p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <i class="fas fa-heartbeat"></i>
+            </div>
+            <h3>Health Benefits</h3>
+            <p>
+              Regular donation may reduce the risk of heart disease and help
+              maintain healthy iron levels.
+            </p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <i class="fas fa-medkit"></i>
+            </div>
+            <h3>Free Health Check</h3>
+            <p>
+              Each donation includes a mini-physical and blood tests, providing
+              valuable health information.
+            </p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3>Community Impact</h3>
+            <p>
+              Join a community of heroes making a difference in their local area
+              and beyond.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section>
+      <div class="container">
+        <div class="section-title">
+          <h2>Success Stories</h2>
+          <p>Hear from people whose lives were saved through blood donation</p>
+        </div>
+        <div class="testimonials-container">
+          <div class="testimonial">
+            <p>
+              "Mere accident hone ke baad mujhe 6 liter blood chiye tha, aap
+              yakin nhi krenge mujhe es platform pe bhot jaldi khoon mil gya.
+              Thank you so much Dikshaya ji aur aapke groups ke nalayako ke bhi
+              jo abhi tak ek ppt bhi tayar nhi kr payen ha."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">MJ</div>
+              <div>
+                <h4>Mahatma Gandu</h4>
+                <p>Road accident survivor</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial">
+            <p>
+              "Mai apne dosto ke sath ek raat party kia, jab mai wapas aaya to
+              gusse me meri wife mera pura khoon pi gyi. Iske baad mere dost ne
+              mujhe es platform ke bare me bataya and now ab mai jinda hoon."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">SP</div>
+              <div>
+                <h4>Prakhar</h4>
+                <p>Polio Patient</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>BloodConnect</h3>
+            <p>
+              Connecting donors with patients in need, saving lives through
+              community support and technology.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+          <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#register">Register</a></li>
+              <li><a href="#search">Find Donors</a></li>
+              <li><a href="#emergency">Emergency</a></li>
+              <li><a href="#benefits">Benefits</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Contact Us</h3>
+            <ul>
+              <li><i class="fas fa-envelope"></i> lifelinkers@gmail.org</li>
+              <li><i class="fas fa-phone"></i> +997 9999 10211</li>
+              <li>
+                <i class="fas fa-map-marker-alt"></i> 123 Haloween, Dream city,
+                Nepal
+              </li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Important Info</h3>
+            <ul>
+              <li><a href="#">Eligibility Requirements</a></li>
+              <li><a href="#">Donation Process</a></li>
+              <li><a href="#">Blood Types Explained</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>
+            &copy; 2025 Life-Linkers. All rights reserved by Myself( Dikshya 😂
+            ). Saving lives one donation at a time.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Creator Button -->
+    <button
+      class="creator-button"
+      onclick="window.location.href='./creators.html'"
+    >
+      <i class="fas fa-user"></i>
+    </button>
+
+    <!-- Notification Container -->
+    <div class="notification" id="notification"></div>
+
+    <script>
+      // Preloaded donor database with 40 donors (20 from Pokhara and 20 from Banaras)
+      let donors = [
+        // Pokhara Donors (20)
+        {
+          id: 1,
+          name: "Nikhil Khesri",
+          email: "nikhil@gmail.com",
+          phone: "9841234567",
+          location: "Banaras",
+          bloodGroup: "O+",
+          lastDonation: "2025-07-15",
+          availability: "available",
+        },
+        {
+          id: 2,
+          name: "Sam",
+          email: "sam@gmail.com",
+          phone: "9841234568",
+          location: "Bangladesh",
+          bloodGroup: "A+",
+          lastDonation: "2025-06-20",
+          availability: "available",
+        },
+        {
+          id: 3,
+          name: "Momo",
+          email: "momo@gmail.com",
+          phone: "9841234569",
+          location: "Pokhara",
+          bloodGroup: "B+",
+          lastDonation: "2025-05-10",
+          availability: "busy",
+        },
+        {
+          id: 4,
+          name: "Utkarsh Singh",
+          email: "utkarsh@gmail.com",
+          phone: "9841234570",
+          location: "Banaras",
+          bloodGroup: "AB+",
+          lastDonation: "2025-08-01",
+          availability: "available",
+        },
+        {
+          id: 5,
+          name: "Deepa Shah",
+          email: "deepa.shah@example.com",
+          phone: "9841234571",
+          location: "Pokhara",
+          bloodGroup: "O-",
+          lastDonation: "2023-04-15",
+          availability: "available",
+        },
+        {
+          id: 6,
+          name: "Eshan Magar",
+          email: "eshan.magar@example.com",
+          phone: "9841234572",
+          location: "Pokhara",
+          bloodGroup: "A-",
+          lastDonation: "2023-07-22",
+          availability: "available",
+        },
+        {
+          id: 7,
+          name: "Fiza Lama",
+          email: "fiza.lama@example.com",
+          phone: "9841234573",
+          location: "Pokhara",
+          bloodGroup: "B-",
+          lastDonation: "2023-06-05",
+          availability: "unavailable",
+        },
+        {
+          id: 8,
+          name: "Ganesh Bhandari",
+          email: "ganesh.bhandari@example.com",
+          phone: "9841234574",
+          location: "Pokhara",
+          bloodGroup: "AB-",
+          lastDonation: "2023-03-18",
+          availability: "available",
+        },
+        {
+          id: 9,
+          name: "Hina Tamang",
+          email: "hina.tamang@example.com",
+          phone: "9841234575",
+          location: "Pokhara",
+          bloodGroup: "O+",
+          lastDonation: "2023-08-10",
+          availability: "available",
+        },
+        {
+          id: 10,
+          name: "Ishan Adhikari",
+          email: "ishan.adhikari@example.com",
+          phone: "9841234576",
+          location: "Pokhara",
+          bloodGroup: "A+",
+          lastDonation: "2023-05-30",
+          availability: "available",
+        },
+        {
+          id: 11,
+          name: "Jyoti Poudel",
+          email: "jyoti.poudel@example.com",
+          phone: "9841234577",
+          location: "Pokhara",
+          bloodGroup: "B+",
+          lastDonation: "2023-07-05",
+          availability: "busy",
+        },
+        {
+          id: 12,
+          name: "Kiran Thakuri",
+          email: "kiran.thakuri@example.com",
+          phone: "9841234578",
+          location: "Pokhara",
+          bloodGroup: "AB+",
+          lastDonation: "2023-04-25",
+          availability: "available",
+        },
+        {
+          id: 13,
+          name: "Laxmi Basnet",
+          email: "laxmi.basnet@example.com",
+          phone: "9841234579",
+          location: "Pokhara",
+          bloodGroup: "O-",
+          lastDonation: "2023-08-12",
+          availability: "available",
+        },
+        {
+          id: 14,
+          name: "Manoj Karki",
+          email: "manoj.karki@example.com",
+          phone: "9841234580",
+          location: "Pokhara",
+          bloodGroup: "A-",
+          lastDonation: "2023-06-18",
+          availability: "available",
+        },
+        {
+          id: 15,
+          name: "Nisha Dhungana",
+          email: "nisha.dhungana@example.com",
+          phone: "9841234581",
+          location: "Pokhara",
+          bloodGroup: "B-",
+          lastDonation: "2023-05-22",
+          availability: "unavailable",
+        },
+        {
+          id: 16,
+          name: "Om Prasad Rana",
+          email: "om.rana@example.com",
+          phone: "9841234582",
+          location: "Pokhara",
+          bloodGroup: "AB-",
+          lastDonation: "2023-07-30",
+          availability: "available",
+        },
+        {
+          id: 17,
+          name: "Priya Ghimire",
+          email: "priya.ghimire@example.com",
+          phone: "9841234583",
+          location: "Pokhara",
+          bloodGroup: "O+",
+          lastDonation: "2023-04-10",
+          availability: "available",
+        },
+        {
+          id: 18,
+          name: "Rajesh Bhattarai",
+          email: "rajesh.bhattarai@example.com",
+          phone: "9841234584",
+          location: "Pokhara",
+          bloodGroup: "A+",
+          lastDonation: "2023-08-05",
+          availability: "available",
+        },
+        {
+          id: 19,
+          name: "Sunita Thakur",
+          email: "sunita.thakur@example.com",
+          phone: "9841234585",
+          location: "Pokhara",
+          bloodGroup: "B+",
+          lastDonation: "2023-06-15",
+          availability: "busy",
+        },
+        {
+          id: 20,
+          name: "Tenzin Sherpa",
+          email: "tenzin.sherpa@example.com",
+          phone: "9841234586",
+          location: "Pokhara",
+          bloodGroup: "AB+",
+          lastDonation: "2023-05-08",
+          availability: "available",
+        },
+
+        // Banaras Donors (20)
+        {
+          id: 21,
+          name: "Amit Sharma",
+          email: "amit.sharma@example.com",
+          phone: "9876543210",
+          location: "Banaras",
+          bloodGroup: "O+",
+          lastDonation: "2023-07-18",
+          availability: "available",
+        },
+        {
+          id: 22,
+          name: "Priya Singh",
+          email: "priya.singh@example.com",
+          phone: "9876543211",
+          location: "Banaras",
+          bloodGroup: "A+",
+          lastDonation: "2023-06-25",
+          availability: "available",
+        },
+        {
+          id: 23,
+          name: "Raj Kumar",
+          email: "raj.kumar@example.com",
+          phone: "9876543212",
+          location: "Banaras",
+          bloodGroup: "B+",
+          lastDonation: "2023-05-12",
+          availability: "busy",
+        },
+        {
+          id: 24,
+          name: "Sneha Patel",
+          email: "sneha.patel@example.com",
+          phone: "9876543213",
+          location: "Banaras",
+          bloodGroup: "AB+",
+          lastDonation: "2023-08-03",
+          availability: "available",
+        },
+        {
+          id: 25,
+          name: "Vikram Verma",
+          email: "vikram.verma@example.com",
+          phone: "9876543214",
+          location: "Banaras",
+          bloodGroup: "O-",
+          lastDonation: "2023-04-20",
+          availability: "available",
+        },
+        {
+          id: 26,
+          name: "Anjali Gupta",
+          email: "anjali.gupta@example.com",
+          phone: "9876543215",
+          location: "Banaras",
+          bloodGroup: "A-",
+          lastDonation: "2023-07-28",
+          availability: "available",
+        },
+        {
+          id: 27,
+          name: "Deepak Mishra",
+          email: "deepak.mishra@example.com",
+          phone: "9876543216",
+          location: "Banaras",
+          bloodGroup: "B-",
+          lastDonation: "2023-06-08",
+          availability: "unavailable",
+        },
+        {
+          id: 28,
+          name: "Kavita Yadav",
+          email: "kavita.yadav@example.com",
+          phone: "9876543217",
+          location: "Banaras",
+          bloodGroup: "AB-",
+          lastDonation: "2023-03-25",
+          availability: "available",
+        },
+        {
+          id: 29,
+          name: "Manish Joshi",
+          email: "manish.joshi@example.com",
+          phone: "9876543218",
+          location: "Banaras",
+          bloodGroup: "O+",
+          lastDonation: "2023-08-15",
+          availability: "available",
+        },
+        {
+          id: 30,
+          name: "Neha Trivedi",
+          email: "neha.trivedi@example.com",
+          phone: "9876543219",
+          location: "Banaras",
+          bloodGroup: "A+",
+          lastDonation: "2023-05-31",
+          availability: "available",
+        },
+        {
+          id: 31,
+          name: "Pankaj Saxena",
+          email: "pankaj.saxena@example.com",
+          phone: "9876543220",
+          location: "Banaras",
+          bloodGroup: "B+",
+          lastDonation: "2023-07-08",
+          availability: "busy",
+        },
+        {
+          id: 32,
+          name: "Ritu Chauhan",
+          email: "ritu.chauhan@example.com",
+          phone: "9876543221",
+          location: "Banaras",
+          bloodGroup: "AB+",
+          lastDonation: "2023-04-28",
+          availability: "available",
+        },
+        {
+          id: 33,
+          name: "Suresh Dwivedi",
+          email: "suresh.dwivedi@example.com",
+          phone: "9876543222",
+          location: "Banaras",
+          bloodGroup: "O-",
+          lastDonation: "2023-08-18",
+          availability: "available",
+        },
+        {
+          id: 34,
+          name: "Tanvi Agarwal",
+          email: "tanvi.agarwal@example.com",
+          phone: "9876543223",
+          location: "Banaras",
+          bloodGroup: "A-",
+          lastDonation: "2023-06-22",
+          availability: "available",
+        },
+        {
+          id: 35,
+          name: "Umesh Tiwari",
+          email: "umesh.tiwari@example.com",
+          phone: "9876543224",
+          location: "Banaras",
+          bloodGroup: "B-",
+          lastDonation: "2023-05-25",
+          availability: "unavailable",
+        },
+        {
+          id: 36,
+          name: "Vandana Singh",
+          email: "vandana.singh@example.com",
+          phone: "9876543225",
+          location: "Banaras",
+          bloodGroup: "AB-",
+          lastDonation: "2023-08-01",
+          availability: "available",
+        },
+        {
+          id: 37,
+          name: "Yash Malhotra",
+          email: "yash.malhotra@example.com",
+          phone: "9876543226",
+          location: "Banaras",
+          bloodGroup: "O+",
+          lastDonation: "2023-04-12",
+          availability: "available",
+        },
+        {
+          id: 38,
+          name: "Zara Khan",
+          email: "zara.khan@example.com",
+          phone: "9876543227",
+          location: "Banaras",
+          bloodGroup: "A+",
+          lastDonation: "2023-08-08",
+          availability: "available",
+        },
+        {
+          id: 39,
+          name: "Arjun Reddy",
+          email: "arjun.reddy@example.com",
+          phone: "9876543228",
+          location: "Banaras",
+          bloodGroup: "B+",
+          lastDonation: "2023-06-18",
+          availability: "busy",
+        },
+        {
+          id: 40,
+          name: "Meera Nair",
+          email: "meera.nair@example.com",
+          phone: "9876543229",
+          location: "Banaras",
+          bloodGroup: "AB+",
+          lastDonation: "2023-05-15",
+          availability: "available",
+        },
+      ];
+
+      let emergencyRequests = [
+        {
+          id: 1,
+          patientName: "Ramesh Thapa",
+          hospital: "Pokhara International Hospital",
+          location: "Pokhara",
+          bloodGroup: "O-",
+          unitsRequired: 3,
+          contactPerson: "Dr. Sharma",
+          contactPhone: "9841000001",
+          details: "Emergency surgery required. Need blood within 2 hours.",
+          date: "2023-08-15",
+        },
+        {
+          id: 2,
+          patientName: "Sunita Devi",
+          hospital: "Banaras Medical College",
+          location: "Banaras",
+          bloodGroup: "A+",
+          unitsRequired: 2,
+          contactPerson: "Nurse Priya",
+          contactPhone: "9876000001",
+          details: "Childbirth complications. Immediate transfusion needed.",
+          date: "2023-08-14",
+        },
+      ];
+
+      // DOM Elements
+      const donorForm = document.getElementById("donorForm");
+      const emergencyForm = document.getElementById("emergencyForm");
+      const searchBtn = document.getElementById("searchBtn");
+      const donorResults = document.getElementById("donorResults");
+      const emergencyRequestsContainer =
+        document.getElementById("emergencyRequests");
+      const notification = document.getElementById("notification");
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const navMenu = document.getElementById("navMenu");
+      const tabs = document.querySelectorAll(".tab");
+      const tabContents = document.querySelectorAll(".tab-content");
+      const emergencyCountElement = document.getElementById("emergencyCount");
+      const themeToggle = document.getElementById("themeToggle");
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", function () {
+        displayDonors(donors);
+        displayEmergencyRequests(emergencyRequests);
+        updateEmergencyCount();
+        setupEventListeners();
+        loadThemePreference();
+      });
+
+      // Setup Event Listeners
+      function setupEventListeners() {
+        // Mobile menu toggle
+        mobileMenuBtn.addEventListener("click", function () {
+          navMenu.classList.toggle("show");
+        });
+
+        // Form submissions
+        donorForm.addEventListener("submit", handleDonorFormSubmit);
+        emergencyForm.addEventListener("submit", handleEmergencyFormSubmit);
+
+        // Search button
+        searchBtn.addEventListener("click", handleSearch);
+
+        // Tab switching
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", function () {
+            const tabName = this.getAttribute("data-tab");
+            switchTab(tabName);
+          });
+        });
+
+        // Theme toggle
+        themeToggle.addEventListener("click", toggleTheme);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll("nav a").forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("href");
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop - 80,
+                behavior: "smooth",
+              });
+              navMenu.classList.remove("show");
+            }
+          });
+        });
+      }
+
+      // Theme functions
+      function toggleTheme() {
+        document.body.classList.toggle("dark-theme");
+        const isDarkTheme = document.body.classList.contains("dark-theme");
+
+        // Update icon
+        themeToggle.innerHTML = isDarkTheme
+          ? '<i class="fas fa-sun"></i>'
+          : '<i class="fas fa-moon"></i>';
+
+        // Save preference to localStorage
+        localStorage.setItem("theme", isDarkTheme ? "dark" : "light");
+      }
+
+      function loadThemePreference() {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+          document.body.classList.add("dark-theme");
+          themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+      }
+
+      // Handle Donor Form Submission
+      function handleDonorFormSubmit(e) {
+        e.preventDefault();
+
+        // Get form values
+        const fullName = document.getElementById("fullName").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const location = document.getElementById("location").value;
+        const bloodGroup = document.getElementById("bloodGroup").value;
+        const lastDonation = document.getElementById("lastDonation").value;
+        const availability = document.getElementById("availability").value;
+
+        // Simple validation
+        if (
+          !fullName ||
+          !email ||
+          !phone ||
+          !location ||
+          !bloodGroup ||
+          !lastDonation
+        ) {
+          showNotification("Please fill in all required fields", "error");
+          return;
+        }
+
+        // Add new donor
+        const newDonor = {
+          id: donors.length + 1,
+          name: fullName,
+          email: email,
+          phone: phone,
+          location: location,
+          bloodGroup: bloodGroup,
+          lastDonation: lastDonation,
+          availability: availability,
+        };
+
+        donors.push(newDonor);
+        displayDonors(donors);
+        showNotification("Donor registered successfully!", "success");
+
+        // Reset form
+        donorForm.reset();
+      }
+
+      // Handle Emergency Form Submission
+      function handleEmergencyFormSubmit(e) {
+        e.preventDefault();
+
+        // Get form values
+        const patientName = document.getElementById("patientName").value;
+        const hospital = document.getElementById("hospital").value;
+        const requestLocation =
+          document.getElementById("requestLocation").value;
+        const requiredBloodGroup =
+          document.getElementById("requiredBloodGroup").value;
+        const unitsRequired = document.getElementById("unitsRequired").value;
+        const contactPerson = document.getElementById("contactPerson").value;
+        const contactPhone = document.getElementById("contactPhone").value;
+        const requestDetails = document.getElementById("requestDetails").value;
+
+        // Simple validation
+        if (
+          !patientName ||
+          !hospital ||
+          !requestLocation ||
+          !requiredBloodGroup ||
+          !unitsRequired ||
+          !contactPerson ||
+          !contactPhone
+        ) {
+          showNotification("Please fill in all required fields", "error");
+          return;
+        }
+
+        // Add new emergency request
+        const newRequest = {
+          id: emergencyRequests.length + 1,
+          patientName: patientName,
+          hospital: hospital,
+          location: requestLocation,
+          bloodGroup: requiredBloodGroup,
+          unitsRequired: unitsRequired,
+          contactPerson: contactPerson,
+          contactPhone: contactPhone,
+          details: requestDetails,
+          date: new Date().toISOString().split("T")[0],
+        };
+
+        emergencyRequests.unshift(newRequest); // Add to beginning of array
+        displayEmergencyRequests(emergencyRequests);
+        updateEmergencyCount();
+        showNotification("Emergency request posted successfully!", "success");
+
+        // Reset form
+        emergencyForm.reset();
+
+        // Switch to view tab
+        switchTab("view");
+      }
+
+      // Handle Search
+      function handleSearch() {
+        const bloodGroup = document.getElementById("searchBloodGroup").value;
+        const location = document
+          .getElementById("searchLocation")
+          .value.toLowerCase();
+        const availability =
+          document.getElementById("searchAvailability").value;
+
+        const filteredDonors = donors.filter((donor) => {
+          const matchesBloodGroup = bloodGroup
+            ? donor.bloodGroup === bloodGroup
+            : true;
+          const matchesLocation = location
+            ? donor.location.toLowerCase().includes(location)
+            : true;
+          const matchesAvailability = availability
+            ? donor.availability === availability
+            : true;
+
+          return matchesBloodGroup && matchesLocation && matchesAvailability;
+        });
+
+        displayDonors(filteredDonors);
+      }
+
+      // Display Donors
+      function displayDonors(donorsArray) {
+        donorResults.innerHTML = "";
+
+        if (donorsArray.length === 0) {
+          donorResults.innerHTML =
+            '<p class="no-results">No donors found matching your criteria.</p>';
+          return;
+        }
+
+        donorsArray.forEach((donor) => {
+          const donorCard = document.createElement("div");
+          donorCard.className = "donor-card";
+          donorCard.innerHTML = `
+                    <h3>${donor.name}
+                    
+
+ ${donor.location}</p>
+                    <p><i class="fas fa-phone"></i> ${donor.phone}
+
+
+                    
+
+ ${donor.email}</p>
+                    <p><i class="fas fa-calendar"></i> Last donation: ${
+                      donor.lastDonation
+                    }
+
+
+                    ${donor.bloodGroup}</span>
+                    <p><strong>Status:</strong> <span class="${
+                      donor.availability === "available"
+                        ? "success"
+                        : donor.availability === "unavailable"
+                        ? "error"
+                        : ""
+                    }">${donor.availability}</span></p>
+                `;
+          donorResults.appendChild(donorCard);
+        });
+      }
+
+      // Display Emergency Requests
+      function displayEmergencyRequests(requestsArray) {
+        emergencyRequestsContainer.innerHTML = "";
+
+        if (requestsArray.length === 0) {
+          emergencyRequestsContainer.innerHTML =
+            '<p class="no-results">No emergency requests at this time.</p>';
+          return;
+        }
+
+        requestsArray.forEach((request) => {
+          const requestCard = document.createElement("div");
+          requestCard.className = "emergency-card";
+          requestCard.innerHTML = `
+                    <div class="emergency-badge">URGENT</div>
+                    <h3>${request.patientName}
+                    
+
+ ${request.hospital}</p>
+                    <p><i class="fas fa-map-marker-alt"></i> ${request.location}
+
+
+                    
+
+ Required: ${request.bloodGroup}</strong> (${request.unitsRequired} units)
+
+
+                    
+
+ Contact: ${request.contactPerson}</p>
+                    <p><i class="fas fa-phone"></i> ${request.contactPhone}
+
+
+                    
+
+${request.details}</p>
+                    <p><small>Posted on: ${request.date}
+
+
+                `;
+          emergencyRequestsContainer.appendChild(requestCard);
+        });
+      }
+
+      // Update Emergency Count
+      function updateEmergencyCount() {
+        emergencyCountElement.textContent = emergencyRequests.length;
+      }
+
+      // Switch Tabs
+      function switchTab(tabName) {
+        tabs.forEach((tab) => tab.classList.remove("active"));
+        tabContents.forEach((content) => content.classList.remove("active"));
+
+        document
+          .querySelector(`[data-tab="${tabName}"]`)
+          .classList.add("active");
+        document.getElementById(`${tabName}Tab`).classList.add("active");
+      }
+
+      // Show Notification
+      function showNotification(message, type) {
+        notification.textContent = message;
+        notification.className = `notification ${type} show`;
+
+        setTimeout(() => {
+          notification.classList.remove("show");
+        }, 3000);
+      }
+
+      // Form Validation
+      function validateForm(form) {
+        let isValid = true;
+        const inputs = form.querySelectorAll("input, select, textarea");
+
+        inputs.forEach((input) => {
+          if (input.hasAttribute("required") && !input.value.trim()) {
+            isValid = false;
+            input.style.borderColor = "red";
+          } else {
+            input.style.borderColor = "#ddd";
+          }
+        });
+
+        return isValid;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Group of Winners</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      :root {
+        --dark-purple: #4b0082;
+        --deep-purple: #2a0a5e;
+        --charcoal: #212121;
+        --light-purple: #9370db;
+        --gold: #ffd700;
+        --slate: #2f2f2f;
+      }
+
+      body {
+        background: linear-gradient(
+          135deg,
+          var(--charcoal),
+          var(--deep-purple)
+        );
+        color: #f0f0f0;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        background: rgba(33, 33, 33, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 1.5rem 2rem;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        color: var(--gold);
+        font-size: 1.8rem;
+        font-weight: 700;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: transform 0.3s ease;
+      }
+
+      .logo:hover {
+        transform: scale(1.05);
+      }
+
+      .logo i {
+        color: var(--light-purple);
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        color: #f0f0f0;
+        text-decoration: none;
+        font-weight: 500;
+        position: relative;
+        padding: 0.5rem 0;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--gold);
+        transition: width 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--gold);
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      /* Hero Section */
+      .hero {
+        padding: 12rem 2rem 6rem;
+        text-align: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle at center,
+          rgba(147, 112, 219, 0.1) 0%,
+          transparent 70%
+        );
+        z-index: -1;
+      }
+
+      .hero h1 {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(45deg, var(--gold), var(--light-purple));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: fadeInDown 1s ease;
+        text-shadow: 0 0 20px rgba(147, 112, 219, 0.3);
+      }
+
+      .hero p {
+        font-size: 1.3rem;
+        max-width: 800px;
+        margin: 0 auto 2rem;
+        line-height: 1.7;
+        animation: fadeInUp 1s ease 0.2s both;
+        color: #d0d0d0;
+      }
+
+      .mission {
+        background: rgba(47, 47, 47, 0.7);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 2.5rem;
+        margin: 3rem auto;
+        max-width: 900px;
+        border: 1px solid rgba(147, 112, 219, 0.3);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        animation: fadeIn 1s ease 0.4s both;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .mission::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--dark-purple),
+          var(--gold),
+          var(--dark-purple)
+        );
+      }
+
+      .mission p {
+        font-style: italic;
+        font-size: 1.4rem;
+        color: #f0f0f0;
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      .mission p::before,
+      .mission p::after {
+        content: '"';
+        font-size: 2.5rem;
+        color: var(--gold);
+        opacity: 0.7;
+      }
+
+      /* Team Section */
+      .team-section {
+        padding: 4rem 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 3rem;
+        margin-bottom: 4rem;
+        color: #f0f0f0;
+        position: relative;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        height: 4px;
+        background: linear-gradient(to right, var(--dark-purple), var(--gold));
+        border-radius: 2px;
+      }
+
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 3rem;
+        margin-top: 2rem;
+      }
+
+      /* Creator Card Styles */
+      .creator-card {
+        background: rgba(33, 33, 33, 0.8);
+        border-radius: 25px;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        transform: translateY(50px);
+        opacity: 0;
+        border: 1px solid rgba(147, 112, 219, 0.2);
+      }
+
+      .creator-card.visible {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .card-header {
+        background: linear-gradient(
+          45deg,
+          var(--dark-purple),
+          var(--deep-purple)
+        );
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card-header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
+        transform: rotate(30deg);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .profile-icon {
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(45deg, var(--light-purple), var(--gold));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 3rem;
+        color: var(--charcoal);
+        border: 3px solid white;
+        box-shadow: 0 0 20px rgba(147, 112, 219, 0.5);
+      }
+
+      .creator-name {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: white;
+      }
+
+      .creator-role {
+        color: var(--gold);
+        font-weight: 600;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .creator-role.captain::after {
+        content: " ★";
+        color: var(--gold);
+      }
+
+      .card-content {
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .creator-bio {
+        color: #b0b0b0;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+      }
+
+      .card-stats {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(147, 112, 219, 0.2);
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--gold);
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: #888;
+        text-transform: uppercase;
+      }
+
+      /* Card Hover Effects */
+      .creator-card:hover {
+        transform: translateY(-15px) !important;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+        border-color: rgba(147, 112, 219, 0.5);
+      }
+
+      .creator-card:hover .card-header::before {
+        opacity: 1;
+      }
+
+      .creator-card:hover .profile-icon {
+        transform: scale(1.1);
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.7);
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* Footer */
+      .footer {
+        background: var(--charcoal);
+        color: #b0b0b0;
+        text-align: center;
+        padding: 3rem;
+        margin-top: 5rem;
+        border-top: 1px solid rgba(147, 112, 219, 0.2);
+      }
+
+      .footer p {
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+      }
+
+      .footer a {
+        color: var(--gold);
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-weight: 500;
+      }
+
+      .footer a:hover {
+        color: var(--light-purple);
+        text-decoration: underline;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+
+        .hero h1 {
+          font-size: 2.8rem;
+        }
+
+        .hero p {
+          font-size: 1.1rem;
+        }
+
+        .mission {
+          padding: 1.8rem;
+        }
+
+        .mission p {
+          font-size: 1.2rem;
+        }
+
+        .section-title {
+          font-size: 2.2rem;
+        }
+
+        .team-grid {
+          gap: 2rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero {
+          padding: 10rem 1rem 4rem;
+        }
+
+        .hero h1 {
+          font-size: 2.2rem;
+        }
+
+        .mission {
+          padding: 1.5rem;
+          margin: 2rem auto;
+        }
+
+        .section-title {
+          font-size: 1.8rem;
+        }
+
+        .creator-name {
+          font-size: 1.5rem;
+        }
+
+        .profile-icon {
+          width: 80px;
+          height: 80px;
+          font-size: 2.5rem;
+        }
+      }
+
+      /* Scroll animation delay */
+      .creator-card:nth-child(1) {
+        transition-delay: 0.1s;
+      }
+      .creator-card:nth-child(2) {
+        transition-delay: 0.2s;
+      }
+      .creator-card:nth-child(3) {
+        transition-delay: 0.3s;
+      }
+      .creator-card:nth-child(4) {
+        transition-delay: 0.4s;
+      }
+      .creator-card:nth-child(5) {
+        transition-delay: 0.5s;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="logo">
+          <i class="fas fa-trophy"></i>
+          Group of Winners
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#mission">Mission</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Group of Winners</h1>
+      <p>
+        All are students of BITS Pilani, highly passionate, dedicated, and
+        working together to build a solution that saves lives.
+      </p>
+
+      <div class="mission" id="mission">
+        <p>
+          Our mission is to bridge the gap between donors and recipients through
+          technology, innovation, and compassion.
+        </p>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section" id="team">
+      <h2 class="section-title">The Champions</h2>
+      <div class="team-grid">
+        <!-- Dikshya - Captain -->
+        <div class="creator-card">
+          <div class="card-header">
+            <div class="profile-icon">
+              <i class="fas fa-crown"></i>
+            </div>
+            <h3 class="creator-name">Dikshya</h3>
+            <div class="creator-role captain">Captain</div>
+          </div>
+          <div class="card-content">
+            <p class="creator-bio">
+              Leadership and vision driving the initiative forward with
+              determination and strategic thinking.
+            </p>
+            <div class="card-stats">
+              <div class="stat-item">
+                <div class="stat-value">1</div>
+                <div class="stat-label">Project</div>
+              </div>
+              <div class="stat-item"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nikhil - Management -->
+        <div class="creator-card">
+          <div class="card-header">
+            <div class="profile-icon">
+              <i class="fas fa-tasks"></i>
+            </div>
+            <h3 class="creator-name">Nikhil</h3>
+            <div class="creator-role">Management</div>
+          </div>
+          <div class="card-content">
+            <p class="creator-bio">
+              Orchestrating operations and ensuring seamless coordination among
+              team members for maximum efficiency.
+            </p>
+            <div class="card-stats">
+              <div class="stat-item"></div>
+              <div class="stat-item"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Utkarsh - Innovation -->
+        <div class="creator-card">
+          <div class="card-header">
+            <div class="profile-icon">
+              <i class="fas fa-lightbulb"></i>
+            </div>
+            <h3 class="creator-name">Utkarsh</h3>
+            <div class="creator-role">Innovation</div>
+          </div>
+          <div class="card-content">
+            <p class="creator-bio">
+              Bringing creative solutions and cutting-edge ideas to
+              revolutionize processes.
+            </p>
+            <div class="card-stats">
+              <div class="stat-item"></div>
+              <div class="stat-item"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sam - Finance -->
+        <div class="creator-card">
+          <div class="card-header">
+            <div class="profile-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3 class="creator-name">Sam</h3>
+            <div class="creator-role">Finance</div>
+          </div>
+          <div class="card-content">
+            <p class="creator-bio">
+              Managing resources strategically to ensure sustainable growth and
+              maximum impact.
+            </p>
+            <div class="card-stats">
+              <div class="stat-item"></div>
+              <div class="stat-item"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aayush - Coder -->
+        <div class="creator-card">
+          <div class="card-header">
+            <div class="profile-icon">
+              <i class="fas fa-code"></i>
+            </div>
+            <h3 class="creator-name">Aayush</h3>
+            <div class="creator-role">Coder</div>
+          </div>
+          <div class="card-content">
+            <p class="creator-bio">
+              Transforming ideas into reality through elegant code and robust
+              technical solutions.
+            </p>
+            <div class="card-stats">
+              <div class="stat-item">
+                <div class="stat-value">100K</div>
+                <div class="stat-label">Lines</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Bugs</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Group of Winners - Excellence Through Collaboration</p>
+      <p>
+        Made with <i class="fas fa-heart" style="color: var(--gold)"></i> by the
+        Champion Team
+      </p>
+      <p><a href="index.html">← Back to Home</a></p>
+    </footer>
+
+    <script>
+      // Scroll animation for cards
+      document.addEventListener("DOMContentLoaded", function () {
+        const cards = document.querySelectorAll(".creator-card");
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+              }
+            });
+          },
+          {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px",
+          }
+        );
+
+        cards.forEach((card) => {
+          observer.observe(card);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener("scroll", function () {
+          const navbar = document.querySelector(".navbar");
+          if (window.scrollY > 50) {
+            navbar.style.padding = "1rem 2rem";
+            navbar.style.background = "rgba(33, 33, 33, 0.98)";
+          } else {
+            navbar.style.padding = "1.5rem 2rem";
+            navbar.style.background = "rgba(33, 33, 33, 0.95)";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
