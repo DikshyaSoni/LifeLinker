@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Life-Linkers - Top Donors</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* Reset & base */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        user-select: none;
+      }
+      body {
+        background: linear-gradient(135deg, #fef2f2, #fee2e2);
+        color: #1f2937;
+        line-height: 1.5;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+        border-radius: 50%;
+        user-select: none;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: 700;
+        color: #b91c1c;
+      }
+      p {
+        font-weight: 500;
+        color: #444;
+      }
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 0;
+      }
+      /* Navbar */
+      nav {
+        background: linear-gradient(135deg, #dc2626, #b91c1c);
+        padding: 1rem 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      nav .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      nav .logo {
+        color: white;
+        font-size: 1.8rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        user-select: none;
+      }
+      nav .logo i {
+        font-size: 2rem;
+        color: #fbbf24;
+        animation: pulse 3s infinite;
+      }
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+      }
+      nav ul li a {
+        color: white;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+      nav ul li a:hover,
+      nav ul li a:focus {
+        background: #fbbf24;
+        color: #b91c1c;
+        outline: none;
+      }
+      /* Featured Donor Spotlight */
+      .featured-donor {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(220, 38, 38, 0.2);
+        padding: 2rem;
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        margin-bottom: 3rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: default;
+      }
+      .featured-donor:hover,
+      .featured-donor:focus-within {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(220, 38, 38, 0.35);
+        outline: none;
+      }
+      .featured-photo {
+        flex-shrink: 0;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: 0 0 15px rgba(220, 38, 38, 0.4);
+        border: 4px solid #fbbf24;
+      }
+      .featured-info {
+        flex: 1;
+      }
+      .featured-info h2 {
+        font-size: 2.5rem;
+        margin-bottom: 0.3rem;
+        color: #b91c1c;
+      }
+      .featured-info .title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #fbbf24;
+        margin-bottom: 1rem;
+        user-select: none;
+      }
+      .featured-info p {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: #444;
+      }
+      .featured-info .badges {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .badge {
+        background: #fbbf24;
+        color: #b91c1c;
+        font-weight: 700;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        user-select: none;
+        box-shadow: 0 2px 8px rgba(251, 191, 36, 0.5);
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+      .badge.hero {
+        background: #10b981;
+        color: white;
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.5);
+      }
+      /* Top Donors List */
+      .top-donors {
+        margin-bottom: 4rem;
+      }
+      .top-donors h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+        user-select: none;
+      }
+      .donor-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+      .donor-card {
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 6px 20px rgba(220, 38, 38, 0.15);
+        padding: 1.5rem 1.8rem;
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: default;
+        position: relative;
+      }
+      .donor-card:hover,
+      .donor-card:focus-within {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 35px rgba(220, 38, 38, 0.3);
+        outline: none;
+      }
+      .rank-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        font-weight: 700;
+        font-size: 1.3rem;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+      }
+      .rank-1 {
+        background: linear-gradient(45deg, #b9f2ff, #0abde3);
+        box-shadow: 0 0 15px #0abde3;
+      }
+      .rank-2 {
+        background: linear-gradient(45deg, #ffd700, #b8860b);
+        box-shadow: 0 0 15px #b8860b;
+      }
+      .rank-3 {
+        background: linear-gradient(45deg, #c0c0c0, #7f7f7f);
+        box-shadow: 0 0 15px #7f7f7f;
+      }
+      .donor-photo {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: 3px solid #dc2626;
+        box-shadow: 0 0 8px rgba(220, 38, 38, 0.4);
+        flex-shrink: 0;
+        user-select: none;
+      }
+      .donor-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+      .donor-name {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #b91c1c;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .donor-name .title-icon {
+        font-size: 1.2rem;
+        color: #fbbf24;
+        user-select: none;
+      }
+      .donor-details {
+        font-size: 0.95rem;
+        color: #555;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        font-weight: 600;
+      }
+      .donor-details span {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      .donor-details i {
+        color: #dc2626;
+        font-size: 1rem;
+      }
+      .donor-badges {
+        margin-top: 0.4rem;
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+      }
+      .donor-badges .badge {
+        background: #10b981;
+        color: white;
+        font-size: 0.8rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 12px;
+        font-weight: 700;
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.5);
+        user-select: none;
+      }
+      /* Donor Benefits Section */
+      .benefits-section {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(220, 38, 38, 0.15);
+        padding: 3rem 2rem;
+        margin-bottom: 4rem;
+        user-select: none;
+      }
+      .benefits-section h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+        color: #b91c1c;
+      }
+      .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+      .benefit-card {
+        background: #fee2e2;
+        border-radius: 14px;
+        padding: 1.8rem 1.5rem;
+        box-shadow: 0 5px 15px rgba(220, 38, 38, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        transition: background 0.3s ease, box-shadow 0.3s ease;
+        cursor: default;
+      }
+      .benefit-card:hover,
+      .benefit-card:focus-within {
+        background: #fbbf24;
+        box-shadow: 0 10px 30px rgba(251, 191, 36, 0.4);
+        outline: none;
+      }
+      .benefit-icon {
+        font-size: 2.8rem;
+        color: #b91c1c;
+        flex-shrink: 0;
+        transition: color 0.3s ease;
+      }
+      .benefit-card:hover .benefit-icon,
+      .benefit-card:focus-within .benefit-icon {
+        color: #7c2d12;
+      }
+      .benefit-text {
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: #4b1d1d;
+      }
+      /* Donor Stories Section */
+      .stories-section {
+        margin-bottom: 4rem;
+      }
+      .stories-section h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+        color: #b91c1c;
+        user-select: none;
+      }
+      .stories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+      }
+      .story-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(220, 38, 38, 0.15);
+        padding: 1.8rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: default;
+      }
+      .story-card:hover,
+      .story-card:focus-within {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(220, 38, 38, 0.3);
+        outline: none;
+      }
+      .story-image {
+        width: 100%;
+        height: 180px;
+        border-radius: 12px;
+        object-fit: cover;
+        box-shadow: 0 5px 15px rgba(220, 38, 38, 0.2);
+        user-select: none;
+      }
+      .story-content h3 {
+        font-size: 1.4rem;
+        color: #b91c1c;
+        font-weight: 700;
+      }
+      .story-content p {
+        font-weight: 500;
+        color: #444;
+        line-height: 1.4;
+      }
+      /* Impact & Recognition Section */
+      .impact-section {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(220, 38, 38, 0.15);
+        padding: 3rem 2rem;
+        margin-bottom: 4rem;
+        user-select: none;
+        text-align: center;
+      }
+      .impact-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #b91c1c;
+      }
+      .impact-stats {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #dc2626;
+        margin-bottom: 2rem;
+      }
+      .badges-container {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+      }
+      .digital-badge {
+        background: #fbbf24;
+        color: #7c2d12;
+        font-weight: 700;
+        padding: 1rem 1.5rem;
+        border-radius: 16px;
+        box-shadow: 0 5px 15px rgba(251, 191, 36, 0.4);
+        font-size: 1.1rem;
+        cursor: default;
+        user-select: none;
+        transition: background 0.3s ease;
+      }
+      .digital-badge:hover,
+      .digital-badge:focus {
+        background: #f59e0b;
+        outline: none;
+      }
+      /* Social Share Buttons */
+      .social-share {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+      }
+      .social-share button {
+        background: #dc2626;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+        transition: background 0.3s ease, transform 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+      }
+      .social-share button:hover,
+      .social-share button:focus {
+        background: #b91c1c;
+        transform: scale(1.15);
+        outline: none;
+      }
+      /* Footer */
+      footer {
+        background: #1f2937;
+        color: #ddd;
+        padding: 2rem 0;
+        text-align: center;
+        font-size: 0.9rem;
+        user-select: none;
+      }
+      footer a {
+        color: #fbbf24;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+      footer a:hover,
+      footer a:focus {
+        color: #dc2626;
+        outline: none;
+      }
+      /* Responsive */
+      @media (max-width: 768px) {
+        .featured-donor {
+          flex-direction: column;
+          text-align: center;
+        }
+        .featured-photo {
+          margin: 0 auto;
+          width: 140px;
+          height: 140px;
+        }
+        .donor-list {
+          grid-template-columns: 1fr;
+        }
+        .benefits-grid {
+          grid-template-columns: 1fr;
+        }
+        .stories-grid {
+          grid-template-columns: 1fr;
+        }
+        .badges-container {
+          flex-direction: column;
+          gap: 1rem;
+        }
+      }
+      @media (max-width: 480px) {
+        nav ul {
+          gap: 1rem;
+        }
+        nav .logo {
+          font-size: 1.4rem;
+        }
+        nav .logo i {
+          font-size: 1.6rem;
+        }
+        .featured-info h2 {
+          font-size: 2rem;
+        }
+        .featured-info .title {
+          font-size: 1rem;
+        }
+        .impact-section h2,
+        .top-donors h2,
+        .benefits-section h2,
+        .stories-section h2 {
+          font-size: 2rem;
+        }
+      }
+      /* Animations */
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 15px rgba(251, 191, 36, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(251, 191, 36, 0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav>
+      <div class="container">
+        <a href="#" class="logo"
+          ><i class="fas fa-heartbeat"></i> Life-Linkers</a
+        >
+        <ul>
+          <li><a href="#featured">Featured Donor</a></li>
+          <li><a href="#top-donors">Top Donors</a></li>
+          <li><a href="#benefits">Donor Benefits</a></li>
+          <li><a href="#stories">Donor Stories</a></li>
+          <li><a href="#impact">Impact & Recognition</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="container">
+      <!-- Featured Donor of the Month -->
+      <section
+        id="featured"
+        class="featured-donor"
+        tabindex="0"
+        aria-label="Featured Donor of the Month"
+      >
+        <div class="featured-photo">
+          <img
+            src="data:image/jpeg;base64,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"
+            alt="Photo of Anjali Gupta"
+          />
+        </div>
+        <div class="featured-info">
+          <h2>Ruth khadka</h2>
+          <div class="title">Featured Donor of the Month</div>
+          <p>
+            Ruth has donated blood 35 times to Ayush, saving countless lives
+            including during critical emergencies. Her rare AB- blood group
+            makes her a true life saver.
+          </p>
+          <div class="badges">
+            <div class="badge hero" title="Hero Donor">Hero Donor</div>
+            <div class="badge" title="Diamond Rank">Diamond</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Top 20 Donors Section -->
+      <section id="top-donors" class="top-donors" aria-label="Top 20 Donors">
+        <h2>Top 20 Donors</h2>
+        <div class="donor-list" role="list">
+          <!-- Donor cards generated by JS below -->
+        </div>
+      </section>
+
+      <!-- Donor Benefits Section -->
+      <section
+        id="benefits"
+        class="benefits-section"
+        aria-label="Donor Benefits"
+      >
+        <h2>Benefits for Top Donors</h2>
+        <div class="benefits-grid">
+          <article class="benefit-card" tabindex="0">
+            <i class="fas fa-landmark benefit-icon" aria-hidden="true"></i>
+            <div class="benefit-text">
+              Government benefits including priority healthcare and tax rebates
+              for regular donors.
+            </div>
+          </article>
+          <article class="benefit-card" tabindex="0">
+            <i class="fas fa-gift benefit-icon" aria-hidden="true"></i>
+            <div class="benefit-text">
+              Exclusive perks from NextMillen: special rewards, higher profit
+              shares, and VIP event invites.
+            </div>
+          </article>
+          <article class="benefit-card" tabindex="0">
+            <i class="fas fa-medal benefit-icon" aria-hidden="true"></i>
+            <div class="benefit-text">
+              Digital badges and certificates recognizing your life-saving
+              contributions.
+            </div>
+          </article>
+          <article class="benefit-card" tabindex="0">
+            <i class="fas fa-hands-helping benefit-icon" aria-hidden="true"></i>
+            <div class="benefit-text">
+              Community recognition and opportunities to participate in
+              exclusive blood drives and awareness programs.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Donor Stories Section -->
+      <section
+        id="stories"
+        class="stories-section"
+        aria-label="Donor Stories and Testimonials"
+      >
+        <h2>Donor Stories</h2>
+        <div class="stories-grid">
+          <article class="story-card" tabindex="0">
+            <img
+              src="data:image/jpeg;base64,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"
+              alt="Donor helping patient"
+              class="story-image"
+            />
+            <div class="story-content">
+              <h3>Saving Lives in Emergency</h3>
+              <p>
+                Madara Uchiha had donated blood to all the senju clans and that
+                why the formation of leaf village is possible.
+              </p>
+            </div>
+          </article>
+          <article class="story-card" tabindex="0">
+            <img
+              src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80"
+              alt="Donor with family"
+              class="story-image"
+            />
+            <div class="story-content">
+              <h3>Multiple Lives Saved</h3>
+              <p>
+                Priya’s consistent donations over 10 years have helped save over
+                50 lives, including children with rare blood groups and accident
+                victims.
+              </p>
+            </div>
+          </article>
+          <article class="story-card" tabindex="0">
+            <img
+              src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=600&q=80"
+              alt="Donor at blood drive"
+              class="story-image"
+            />
+            <div class="story-content">
+              <h3>Rare Blood Group Hero</h3>
+              <p>
+                Anjali’s AB- blood donations have been crucial in multiple
+                emergency cases where compatible donors were scarce, making her
+                a true life saver.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Impact & Recognition Section -->
+      <section
+        id="impact"
+        class="impact-section"
+        aria-label="Impact and Recognition"
+      >
+        <h2>Impact & Recognition</h2>
+        <div class="impact-stats" aria-live="polite" aria-atomic="true">
+          20 Donors Saved 500+ Lives
+        </div>
+        <div
+          class="badges-container"
+          role="list"
+          aria-label="Digital badges for donors"
+        >
+          <div
+            class="digital-badge"
+            tabindex="0"
+            role="listitem"
+            aria-label="Certificate of Appreciation"
+          >
+            Certificate of Appreciation
+          </div>
+          <div
+            class="digital-badge"
+            tabindex="0"
+            role="listitem"
+            aria-label="Life Saver Badge"
+          >
+            Life Saver Badge
+          </div>
+          <div
+            class="digital-badge"
+            tabindex="0"
+            role="listitem"
+            aria-label="Hero Donor Badge"
+          >
+            Hero Donor Badge
+          </div>
+        </div>
+        <div class="social-share" aria-label="Share impact on social media">
+          <button aria-label="Share on Facebook" title="Share on Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </button>
+          <button aria-label="Share on Twitter" title="Share on Twitter">
+            <i class="fab fa-twitter"></i>
+          </button>
+          <button aria-label="Share on LinkedIn" title="Share on LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </button>
+          <button aria-label="Share on Instagram" title="Share on Instagram">
+            <i class="fab fa-instagram"></i>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>&copy; 2025 Life-Linkers. Created with ❤️ by godCodingL.</footer>
+
+    <script>
+      // Sample top 20 donors data
+      const donors = [
+        {
+          name: "Ruth Khadka",
+          photo:
+            "data:image/jpeg;base64,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",
+          bloodGroup: "AB-",
+          donations: 35,
+          location: "Pokhara, Nepal",
+          badges: ["Hero Donor", "Life Saver"],
+        },
+        {
+          name: "Rajesh Bhattarai",
+          photo: "https://randomuser.me/api/portraits/men/45.jpg",
+          bloodGroup: "O-",
+          donations: 30,
+          location: "Banaras, India",
+          badges: ["Life Saver"],
+        },
+        {
+          name: "Priya Singh",
+          photo: "https://randomuser.me/api/portraits/women/44.jpg",
+          bloodGroup: "A+",
+          donations: 28,
+          location: "Kathmandu, Nepal",
+          badges: ["Hero Donor"],
+        },
+        {
+          name: "Nikhil Khesri",
+          photo: "https://randomuser.me/api/portraits/men/32.jpg",
+          bloodGroup: "O+",
+          donations: 25,
+          location: "Pokhara, Nepal",
+          badges: [],
+        },
+        {
+          name: "Sneha Patel",
+          photo: "https://randomuser.me/api/portraits/women/55.jpg",
+          bloodGroup: "B+",
+          donations: 24,
+          location: "Banaras, India",
+          badges: [],
+        },
+        {
+          name: "Utkarsh Singh",
+          photo: "https://randomuser.me/api/portraits/men/29.jpg",
+          bloodGroup: "AB+",
+          donations: 22,
+          location: "Pokhara, Nepal",
+          badges: [],
+        },
+        {
+          name: "Deepa Shah",
+          photo: "https://randomuser.me/api/portraits/women/33.jpg",
+          bloodGroup: "O-",
+          donations: 20,
+          location: "Kathmandu, Nepal",
+          badges: [],
+        },
+        {
+          name: "Eshan Magar",
+          photo: "https://randomuser.me/api/portraits/men/38.jpg",
+          bloodGroup: "A-",
+          donations: 19,
+          location: "Pokhara, Nepal",
+          badges: [],
+        },
+        {
+          name: "Fiza Lama",
+          photo: "https://randomuser.me/api/portraits/women/22.jpg",
+          bloodGroup: "B-",
+          donations: 18,
+          location: "Pokhara, Nepal",
+          badges: [],
+        },
+        {
+          name: "Ganesh Bhandari",
+          photo: "https://randomuser.me/api/portraits/men/40.jpg",
+          bloodGroup: "AB-",
+          donations: 17,
+          location: "Pokhara, Nepal",
+          badges: [],
+        },
+        {
+          name: "Hina Tamang",
+          photo: "https://randomuser.me/api/portraits/women/30.jpg",
+          bloodGroup: "O+",
+          donations: 16,
+          location: "Pokhara, Nepal",
+          badges: [],
+        },
+        {
+          name: "Ishan Adhikari",
+          photo: "https://randomuser.me/api/portraits/men/41.jpg",
+          bloodGroup: "A+",
+          donations: 15,
+          location: "Pokhara, Nepal",
+          badges: [],
+        },
+        {
+          name: "Jyoti Poudel",
+          photo: "https://randomuser.me/api/portraits/women/28.jpg",
+          bloodGroup: "B+",
+          donations: 14,
+          location: "Pokhara, Nepal",
+          badges: [],
+        },
+        {
+          name: "Kiran Thakuri",
+          photo: "https://randomuser.me/api/portraits/men/35.jpg",
+          bloodGroup: "AB+",
+          donations: 13,
+          location: "Pokhara, Nepal",
+          badges: [],
+        },
+        {
+          name: "Laxmi Basnet",
+          photo: "https://randomuser.me/api/portraits/women/26.jpg",
+          bloodGroup: "O-",
+          donations: 12,
+          location: "Pokhara, Nepal",
+          badges: [],
+        },
+        {
+          name: "Manoj Karki",
+          photo: "https://randomuser.me/api/portraits/men/37.jpg",
+          bloodGroup: "A-",
+          donations: 11,
+          location: "Pokhara, Nepal",
+          badges: [],
+        },
+        {
+          name: "Nisha Dhungana",
+          photo: "https://randomuser.me/api/portraits/women/25.jpg",
+          bloodGroup: "B-",
+          donations: 10,
+          location: "Pokhara, Nepal",
+          badges: [],
+        },
+        {
+          name: "Om Prasad Rana",
+          photo: "https://randomuser.me/api/portraits/men/39.jpg",
+          bloodGroup: "AB-",
+          donations: 9,
+          location: "Pokhara, Nepal",
+          badges: [],
+        },
+        {
+          name: "Priya Ghimire",
+          photo: "https://randomuser.me/api/portraits/women/27.jpg",
+          bloodGroup: "O+",
+          donations: 8,
+          location: "Pokhara, Nepal",
+          badges: [],
+        },
+        {
+          name: "Rajesh Bhattarai",
+          photo: "https://randomuser.me/api/portraits/men/45.jpg",
+          bloodGroup: "A+",
+          donations: 7,
+          location: "Pokhara, Nepal",
+          badges: [],
+        },
+      ];
+
+      const donorListEl = document.querySelector(".donor-list");
+
+      function createBadgeElement(text) {
+        const badge = document.createElement("div");
+        badge.className = "badge";
+        badge.textContent = text;
+        if (text === "Hero Donor") badge.classList.add("hero");
+        return badge;
+      }
+
+      function createRankBadge(rank) {
+        const rankBadge = document.createElement("div");
+        rankBadge.className = "rank-badge";
+        rankBadge.textContent = rank;
+        if (rank === 1) rankBadge.classList.add("rank-1");
+        else if (rank === 2) rankBadge.classList.add("rank-2");
+        else if (rank === 3) rankBadge.classList.add("rank-3");
+        return rankBadge;
+      }
+
+      function createDonorCard(donor, rank) {
+        const card = document.createElement("article");
+        card.className = "donor-card";
+        card.setAttribute("role", "listitem");
+        card.tabIndex = 0;
+
+        // Rank badge
+        const rankBadge = createRankBadge(rank);
+        card.appendChild(rankBadge);
+
+        // Photo
+        const photo = document.createElement("img");
+        photo.className = "donor-photo";
+        photo.src = donor.photo;
+        photo.alt = `Photo of ${donor.name}`;
+        card.appendChild(photo);
+
+        // Info container
+        const info = document.createElement("div");
+        info.className = "donor-info";
+
+        // Name with special title for top 3
+        const nameEl = document.createElement("div");
+        nameEl.className = "donor-name";
+        nameEl.textContent = donor.name;
+
+        if (rank === 1) {
+          const diamondIcon = document.createElement("i");
+          diamondIcon.className = "fas fa-gem title-icon";
+          diamondIcon.title = "Diamond Title";
+          diamondIcon.setAttribute("aria-label", "Diamond Title");
+          nameEl.appendChild(diamondIcon);
+        } else if (rank === 2) {
+          const goldIcon = document.createElement("i");
+          goldIcon.className = "fas fa-medal title-icon";
+          goldIcon.title = "Gold Title";
+          goldIcon.setAttribute("aria-label", "Gold Title");
+          nameEl.appendChild(goldIcon);
+        } else if (rank === 3) {
+          const silverIcon = document.createElement("i");
+          silverIcon.className = "fas fa-award title-icon";
+          silverIcon.title = "Silver Title";
+          silverIcon.setAttribute("aria-label", "Silver Title");
+          nameEl.appendChild(silverIcon);
+        }
+        info.appendChild(nameEl);
+
+        // Details
+        const details = document.createElement("div");
+        details.className = "donor-details";
+
+        const bloodGroupSpan = document.createElement("span");
+        bloodGroupSpan.innerHTML = `<i class="fas fa-tint" aria-hidden="true"></i> ${donor.bloodGroup}`;
+        details.appendChild(bloodGroupSpan);
+
+        const donationsSpan = document.createElement("span");
+        donationsSpan.innerHTML = `<i class="fas fa-hand-holding-medical" aria-hidden="true"></i> ${donor.donations} donations`;
+        details.appendChild(donationsSpan);
+
+        const locationSpan = document.createElement("span");
+        locationSpan.innerHTML = `<i class="fas fa-map-marker-alt" aria-hidden="true"></i> ${donor.location}`;
+        details.appendChild(locationSpan);
+
+        info.appendChild(details);
+
+        // Badges
+        if (donor.badges.length > 0) {
+          const badgesContainer = document.createElement("div");
+          badgesContainer.className = "donor-badges";
+          donor.badges.forEach((badgeText) => {
+            badgesContainer.appendChild(createBadgeElement(badgeText));
+          });
+          info.appendChild(badgesContainer);
+        }
+
+        card.appendChild(info);
+        return card;
+      }
+
+      // Render top 20 donors
+      donors.slice(0, 20).forEach((donor, index) => {
+        donorListEl.appendChild(createDonorCard(donor, index + 1));
+      });
+    </script>
+  </body>
+</html>
